@@ -25,7 +25,7 @@
 
     <build>
         <finalName>leedcode_</finalName>
-        <testSourceDirectory>${basedir}/main/test</testSourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
         <plugins>
 
 
