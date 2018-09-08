@@ -1,5 +1,6 @@
 package solutions.utility;
 
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -15,6 +16,10 @@ public class ArrayListEngine {
             result[size] = rd.nextInt(range);
         }
         return result;
+    }
+
+    public int[] defaultRandomArray() {
+        return randomGenerateArray(1000, 1000, new Date().getTime());
     }
 
     public static void main(String[] args) {
