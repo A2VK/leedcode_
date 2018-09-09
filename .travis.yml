@@ -1,5 +1,5 @@
 sudo: true
-language:java
+language: java
 install: travis_wait mvn install
 jdk: oraclejdk8
 env:
