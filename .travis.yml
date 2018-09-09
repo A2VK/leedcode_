@@ -1,7 +1,7 @@
+sudo: true
 language:java
 install: travis_wait mvn install
-jdk:
-  - oraclejdk8
+jdk: oraclejdk8
 env:
   - TEST_SUITE=units
   - TEST_SUITE=integration
