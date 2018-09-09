@@ -1,5 +1,5 @@
 language:java
-travis_wait mvn install
+install: travis_wait mvn install
 jdk:
   - oraclejdk8
 env:
