@@ -1,5 +1,13 @@
 language:java
+travis_wait mvn install
 jdk:
   - oraclejdk8
+env:
+  - TEST_SUITE=units
+  - TEST_SUITE=integration
   
-script: true
+stages:
+  - compile
+  - test
+  - name: deploy
+    if: branch = master
