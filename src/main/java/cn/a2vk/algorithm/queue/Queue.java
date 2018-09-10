@@ -32,7 +32,7 @@ public class Queue {
 
     public int pop() {
         // write your code here
-        if (stack1.empty() == true) {
+        if (stack1.empty()) {
             this.stack2ToStack1();
         }
         return stack1.pop();
@@ -40,7 +40,7 @@ public class Queue {
 
     public int top() {
         // write your code here
-        if (stack1.empty() == true) {
+        if (stack1.empty()) {
             this.stack2ToStack1();
         }
         return stack1.peek();
