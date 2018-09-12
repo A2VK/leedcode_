@@ -3,23 +3,25 @@ package cn.a2vk.solutions.tree;
 /**
  * Created by hoducust on 2018/9/3 22H 36m .
  * 最大索引堆
- * 优点：利用索引优化数据间移动的时间及空间成本
+ * 优点：反向索引 解决 change 数据时的查找时间复杂度
  */
-public class IndexMaxHeap<Item extends Comparable> {
+public class ReverseIndexMaxHeap<Item extends Comparable> {
 
     private Item[] data;
     private int[] indexes;
+    private int[] reverse;
     private int count;
     private int capacity;
 
-    public IndexMaxHeap(int capacity) {
+    public ReverseIndexMaxHeap(int capacity) {
         data = (Item[]) new Comparable[capacity + 1];
         indexes = new int[capacity + 1];
+        reverse = new int[capacity + 1];
         this.capacity = capacity;
         this.count = 0;
     }
 
-    public IndexMaxHeap(Item[] arrs) {
+    public ReverseIndexMaxHeap(Item[] arrs) {
         int length = arrs.length;
         this.capacity = length;
         this.count = length;
@@ -40,6 +42,8 @@ public class IndexMaxHeap<Item extends Comparable> {
             index += 1;
             data[index] = item;
             indexes[count + 1] = index;
+            reverse[index] = count + 1;
+
             count++;
             shiftUp(count);
         } else {
@@ -54,7 +58,10 @@ public class IndexMaxHeap<Item extends Comparable> {
         Item result = null;
         if (count > 0) {
             result = data[indexes[1]];
-            swapIndexes(indexes, 1, count--);
+            swapIndexes(indexes, 1, count);
+            reverse[indexes[1]] = 1;
+            reverse[indexes[count]] = 0;
+            count--;
             shiftDown(1);
         } else {
             throw new IndexOutOfBoundsException("heap count is enpty");
@@ -66,7 +73,10 @@ public class IndexMaxHeap<Item extends Comparable> {
         int result = -1;
         if (count > 0) {
             result = indexes[1] - 1;
-            swapIndexes(indexes, 1, count--);
+            swapIndexes(indexes, 1, count);
+            reverse[indexes[1]] = 1;
+            reverse[indexes[count]] = 0;
+            count--;
             shiftDown(1);
         }
         return result;
@@ -81,23 +91,31 @@ public class IndexMaxHeap<Item extends Comparable> {
     }
 
     public Item getItem(int index) {
-        if (index + 1 >= 1 && index + 1 <= count) {
+        if (contain(index)) {
             return data[index + 1];
         } else {
-            return null;
+            throw new IllegalArgumentException("index Illegal");
+        }
+    }
+
+    private boolean contain(int i) {
+        if (i + 1 <= i && i + 1 <= capacity) {
+            return reverse[i + 1] != 0;
+        } else {
+            throw new IllegalArgumentException("index Illegal");
         }
     }
 
     public void change(int index, Item newItem) {
-        index += 1;
-        data[index] = newItem;
+        if (contain(index)) {
+            index += 1;
+            data[index] = newItem;
 
-        for (int i = 1; i <= count; i++) {
-            if (indexes[i] == index) {
-                shiftUp(i);
-                shiftDown(i);
-                return;
-            }
+            int i = reverse[index];
+            shiftUp(i);
+            shiftDown(i);
+        } else {
+            throw new IllegalArgumentException("index Illegal");
         }
     }
 
@@ -112,6 +130,8 @@ public class IndexMaxHeap<Item extends Comparable> {
     private void shiftUp(int k) {
         while (k > 0 && data[indexes[k / 2]].compareTo(data[indexes[k]]) < 0) {
             swapIndexes(indexes, k / 2, k);
+            reverse[indexes[k / 2]] = k / 2;
+            reverse[indexes[k]] = k;
             k = k / 2;
         }
     }
@@ -126,6 +146,8 @@ public class IndexMaxHeap<Item extends Comparable> {
                 break;
             }
             swapIndexes(indexes, k, ks);
+            reverse[indexes[k]] = k;
+            reverse[indexes[ks]] = ks;
             k = ks;
         }
     }
