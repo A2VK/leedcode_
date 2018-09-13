@@ -3,7 +3,7 @@ package cn.a2vk.solutions.tree;
 /**
  * Created by hoducust on 2018/9/13 22H 11m .
  */
-public class BinarySearchTree<K, V> {
+public class BinarySearchTree<K extends Comparable, V> {
 
     private class Node {
         K key;
@@ -32,7 +32,24 @@ public class BinarySearchTree<K, V> {
     }
 
     public void insert(K key, V value) {
+        insert(root, key, value);
+    }
 
+    private Node insert(Node node, K key, V value) {
+
+        if (node.key == null) {
+            count++;
+            return new Node(key, value);
+        }
+
+        if (node.key == key) {
+            node.value = value;
+        } else if (node.key.compareTo(key) < 0) {
+            node.right = insert(node.right, key, value);
+        } else {
+            node.left = insert(node.left, key, value);
+        }
+        return node;
     }
 
 }
