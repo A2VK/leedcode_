@@ -45,11 +45,44 @@ public class BinarySearchTree<K extends Comparable, V> {
         if (node.key == key) {
             node.value = value;
         } else if (node.key.compareTo(key) < 0) {
-            node.right = insert(node.right, key, value);
+            node.right = insert(node.left, key, value);
         } else {
-            node.left = insert(node.left, key, value);
+            node.left = insert(node.right, key, value);
         }
         return node;
     }
 
+    public boolean contain(K key) {
+        return contain(root, key);
+    }
+
+    private boolean contain(Node node, K key) {
+
+        if (node == null) return false;
+
+        if (node.key == key) {
+            return true;
+        } else if (node.key.compareTo(key) < 0) {
+            return contain(node.left, key);
+        } else {
+            return contain(node.right, key);
+        }
+    }
+
+    public V search(K key) {
+        return search(root, key);
+    }
+
+    private V search(Node node, K key) {
+
+        if (node == null) return null;
+
+        if (node.key == key) {
+            return node.value;
+        } else if (node.key.compareTo(key) < 0) {
+            return search(node.left, key);
+        } else {
+            return search(node.right, key);
+        }
+    }
 }
