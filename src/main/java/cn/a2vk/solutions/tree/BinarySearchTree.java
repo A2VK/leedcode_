@@ -1,12 +1,18 @@
 package cn.a2vk.solutions.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Created by hoducust on 2018/9/13 22H 11m .
  *
- * 树的遍历 >>
+ * 树的遍历 >> 深度优先
  * 先序遍历：先访问自己，再递归访问左右子树
  * 中序遍历：先递归访问左子树，再访问自己，再递归访问右子树
  * 后续遍历：先递归左右子树，最后访问自己
+ *
+ * 层序遍历 >> 广度优先
+ *
  *
  */
 public class BinarySearchTree<K extends Comparable, V> {
@@ -130,4 +136,27 @@ public class BinarySearchTree<K extends Comparable, V> {
             System.out.println(node.value);
         }
     }
+
+    //层序遍历
+    public void levelOrder() {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+
+            Node tnode = queue.poll();
+
+            System.out.println(tnode.value);
+            ;
+
+            if (root.left != null) {
+                queue.add(root.left);
+            }
+            if (root.right != null) {
+                queue.add(root.right);
+            }
+
+        }
+    }
+
 }
