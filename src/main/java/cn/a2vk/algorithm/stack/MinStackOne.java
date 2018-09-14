@@ -31,7 +31,6 @@ public class MinStackOne {
         } else {
             stack.push(number - min);
         }
-        return;
     }
 
     /*

@@ -19,9 +19,8 @@ public class BubbleSort {
                 int curr = arr[j];
                 int next = arr[j + 1];
                 if (curr > next) {
-                    int tmp = curr;
                     arr[j] = next;
-                    arr[j + 1] = tmp;
+                    arr[j + 1] = curr;
                 }
             }
         }
