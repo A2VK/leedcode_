@@ -2,6 +2,12 @@ package cn.a2vk.solutions.tree;
 
 /**
  * Created by hoducust on 2018/9/13 22H 11m .
+ *
+ * 树的遍历 >>
+ * 先序遍历：先访问自己，再递归访问左右子树
+ * 中序遍历：先递归访问左子树，再访问自己，再递归访问右子树
+ * 后续遍历：先递归左右子树，最后访问自己
+ *
  */
 public class BinarySearchTree<K extends Comparable, V> {
 
@@ -83,6 +89,45 @@ public class BinarySearchTree<K extends Comparable, V> {
             return search(node.left, key);
         } else {
             return search(node.right, key);
+        }
+    }
+
+    // 先序遍历：先访问自己，再递归访问左右子树
+    public void preOrder() {
+        preOrder(root);
+    }
+
+    private void preOrder(Node node) {
+        if (node != null) {
+            System.out.println(node.value);
+            preOrder(node.left);
+            preOrder(node.right);
+        }
+    }
+
+    // 中序遍历：先递归访问左子树，再访问自己，再递归访问右子树
+    public void inOrder() {
+        inOrder(root);
+    }
+
+    private void inOrder(Node node) {
+        if (node != null) {
+            inOrder(node.left);
+            System.out.println(node.value);
+            inOrder(node.right);
+        }
+    }
+
+    // 后续遍历：先递归左右子树，最后访问自己
+    public void postOrder() {
+        postOrder(root);
+    }
+
+    private void postOrder(Node node) {
+        if (node != null) {
+            postOrder(node.left);
+            postOrder(node.right);
+            System.out.println(node.value);
         }
     }
 }
