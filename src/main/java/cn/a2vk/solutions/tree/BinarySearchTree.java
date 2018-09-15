@@ -5,15 +5,13 @@ import java.util.Queue;
 
 /**
  * Created by hoducust on 2018/9/13 22H 11m .
- *
+ * <p>
  * 树的遍历 >> 深度优先
  * 先序遍历：先访问自己，再递归访问左右子树
  * 中序遍历：先递归访问左子树，再访问自己，再递归访问右子树
  * 后续遍历：先递归左右子树，最后访问自己
- *
+ * <p>
  * 层序遍历 >> 广度优先
- *
- *
  */
 public class BinarySearchTree<K extends Comparable, V> {
 
@@ -156,6 +154,22 @@ public class BinarySearchTree<K extends Comparable, V> {
                 queue.add(root.right);
             }
 
+        }
+    }
+
+    //最小值
+    public V minimum() {
+        return minimum(root);
+    }
+
+    private V minimum(Node node) {
+
+        if (node == null) return null;
+
+        if (node.left == null) {
+            return minimum(node.left);
+        } else {
+            return node.value;
         }
     }
 
