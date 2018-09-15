@@ -261,6 +261,22 @@ public class BinarySearchTree<K extends Comparable, V> {
 
     }
 
+    /**
+     * TODO：Iteration solution
+     *
+     * 迭代法 解决上述问题
+     *
+     * successor(前驱),predecessor(后继)[元素必须存在]
+     *
+     * floor(最接近小于值),ceil(最接近大于值)[最小值最大值特殊]
+     *
+     * rank(拍第几个),select(排名位是谁)
+     *
+     * 支持重复元素
+     *
+     */
+
+
 
 }
 
