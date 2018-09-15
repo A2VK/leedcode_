@@ -42,12 +42,12 @@ public class BinarySearchTree<K extends Comparable, V> {
     }
 
     public void insert(K key, V value) {
-        insert(root, key, value);
+        root = insert(root, key, value);
     }
 
     private Node insert(Node node, K key, V value) {
 
-        if (node.key == null) {
+        if (node == null) {
             count++;
             return new Node(key, value);
         }
