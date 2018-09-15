@@ -159,18 +159,109 @@ public class BinarySearchTree<K extends Comparable, V> {
 
     //最小值
     public V minimum() {
-        return minimum(root);
+        return minimum(root).value;
     }
 
-    private V minimum(Node node) {
+    private Node minimum(Node node) {
 
         if (node == null) return null;
 
         if (node.left == null) {
             return minimum(node.left);
         } else {
-            return node.value;
+            return node;
         }
     }
 
+    //最大值
+    public V maxmum() {
+        return maxmum(root).value;
+    }
+
+    private Node maxmum(Node node) {
+        if (node == null) return null;
+
+        if (node.right != null) {
+            return maxmum(node.right);
+        } else {
+            return node;
+        }
+    }
+
+    // 删除最小值（找到最小值，无子节点直接删除，有子节点将父节点指向子节点）
+    public void deleteMinimum() {
+        if (root != null)
+            root = deleteMinimum(root);
+    }
+
+    private Node deleteMinimum(Node node) {
+
+        if (node.left == null) {
+            count--;
+            return node.right;
+        }
+        node.left = deleteMinimum(node.left);
+        return node;
+    }
+
+    //删除最大值（找到最大值，无子节点直接删除，有子节点将父节点指向子节点）
+    public void deleteMaxmum() {
+        if (root != null)
+            root = deleteMaxmum(root);
+    }
+
+    private Node deleteMaxmum(Node node) {
+
+        if (node.right == null) {
+            count--;
+            return node.left;
+        }
+        node.right = deleteMaxmum(node.right);
+        return node;
+    }
+
+    // 删除节点
+    public void delete(K key) {
+        if (root != null) {
+            root = delete(root, key);
+        }
+    }
+
+    private Node delete(Node node, K key) {
+
+        if (node == null) return null;
+
+        if (node.key.compareTo(key) > 0) {
+            node.left = delete(node.left, key);
+            return node;
+        } else if (node.key.compareTo(key) < 0) {
+            node.right = delete(node.right, key);
+            return node;
+        } else {
+
+            // 单左节点情况
+            if (node.left == null) {
+                count--;
+                return node.right;
+            }
+
+            // 单右节点情况
+            if (node.right == null) {
+                count--;
+                return node.left;
+            }
+
+            // 双子节点情况
+            Node successor = minimum(node.right);
+            successor.right = deleteMinimum(node.right);
+            successor.left = node.left;
+            count--;
+            return successor;
+        }
+
+    }
+
+
 }
+
+
