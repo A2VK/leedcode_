@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by hoducust on 2018/9/17 23H 00m .
  */
-public class SparseGraph {
+public class SparseGraph implements Graph {
 
     private int n;
     private int m;
@@ -25,6 +25,14 @@ public class SparseGraph {
         } else {
             throw new IllegalArgumentException("n error!");
         }
+    }
+
+    public int V() {
+        return n;
+    }
+
+    public int E() {
+        return m;
     }
 
     public void addEdge(int v, int w) {
@@ -47,5 +55,24 @@ public class SparseGraph {
         }
         return false;
     }
+
+    public Iterable<Integer> adj(int v) {
+        if (0 <= v && v < n) {
+            return g[v];
+        } else {
+            throw new IllegalArgumentException("v error");
+        }
+    }
+
+    public void show() {
+        for (int i = 0; i < n; i++) {
+            System.out.print("vertex " + i + ":\t");
+            for (int j = 0; j < g[i].size(); j++)
+                System.out.print(g[i].get(j) + "\t");
+            System.out.println();
+        }
+
+    }
+
 
 }
