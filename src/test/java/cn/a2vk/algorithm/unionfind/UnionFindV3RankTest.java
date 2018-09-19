@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  */
 public class UnionFindV3RankTest {
 
-    UnionFindV3Rank unf;
+    private UnionFindV3Rank unf;
 
     @Before
     public void setUp() throws Exception {

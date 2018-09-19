@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  */
 public class UnionFindV1Test {
 
-    UnionFindV1 unf;
+    private UnionFindV1 unf;
 
     @Before
     public void setUp() throws Exception {
