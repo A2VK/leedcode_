@@ -39,7 +39,7 @@ public class ReadGraph {
     private Iterable<String> readFile(String path) {
         BufferedReader bfr = null;
         try {
-            bfr = new BufferedReader(new InputStreamReader(new FileInputStream(new File(path))));
+            bfr = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
