@@ -7,36 +7,42 @@ import java.util.Deque;
 /**
  * Created by hoducust on 2018/9/19 22H 58m .
  */
-public class Path {
+public class ShortestPath {
 
     private Graph graph;
     private int s;
     private boolean[] visited;
     private int[] from;
+    private int[] ord;
 
 
-    public Path(Graph vgraph, int s) {
+    public ShortestPath(Graph vgraph, int s) {
         this.graph = vgraph;
         if (s >= 0 && s < graph.V()) {
             visited = new boolean[graph.V()];
             from = new int[graph.V()];
+            ord = new int[graph.V()];
 
             for (int i = 0; i < graph.V(); i++) {
                 from[i] = -1;
+                ord[i] = -1;
             }
             this.s = s;
-            DFS(s);
-        }
-    }
+            // BFS
+            Deque<Integer> stage = new ArrayDeque<>();
+            stage.push(s);
+            visited[s] = true;
 
-    private void DFS(int v) {
-        if (v >= 0 && v < graph.V())
-            for (int i : graph.adj(v)) {
-                if (!visited[i]) {
+            while (!stage.isEmpty()) {
+                int v = stage.poll();
+                for (int i : graph.adj(v)) {
+                    stage.add(i);
+                    visited[i] = true;
                     from[i] = v;
-                    DFS(i);
+                    ord[i] = ord[v] + 1;
                 }
             }
+        }
     }
 
     public ArrayList<Integer> path(int v) {
