@@ -24,7 +24,7 @@
 
 
     <build>
-        <finalName>leedcode_</finalName>
+        <finalName>leetcode_</finalName>
         <testSourceDirectory>src/test/java</testSourceDirectory>
         <plugins>
 
